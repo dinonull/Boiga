@@ -198,6 +198,14 @@ class SetPenColour(core.Statement):
 		elif type(colour) is not LiteralColour:
 			colour = ensure_expression(colour)+0 # TODO: only add zero if it's not an expression to begin with
 		super().__init__("pen_setPenColorToColor", COLOR=colour)
+		
+class SetPenColor(core.Statement):
+	def __init__(self, color):
+		if type(color) is int and color < 0x1000000:
+			color = LiteralColour(f"#{colour:06x}")
+		elif type(color) is not LiteralColour:
+			color = ensure_expression(color)+0 # TODO: only add zero if it's not an expression to begin with
+		super().__init__("pen_setPenColorToColor", COLOR=color)
 
 
 class SetPenParam(core.Statement):
